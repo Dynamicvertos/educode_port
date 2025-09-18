@@ -275,15 +275,12 @@ export default function DownloadsPage() {
         </div>
       </section>
 
-      {/* Terms & Conditions Modal */}
+      {/* Terms & Conditions Modal (EULA) */}
       <TermsModal
         open={tcOpen}
         item={pendingItem}
         onClose={() => { setTcOpen(false); setPendingItem(null); }}
         onAccept={startDownload}
-        os={os}
-        linuxVersion={linuxVersion}
-        linuxFlavor={linuxFlavor}
       />
 
       {/* Hide scrollbars globally and via utility */}
@@ -446,8 +443,8 @@ function buildSystemRequirements({ os, arch, linuxVersion, linuxFlavor }) {
   };
 }
 
-/* ================= Terms & Conditions Modal ================= */
-function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlavor }) {
+/* ================= EULA Modal ================= */
+function TermsModal({ open, item, onAccept, onClose }) {
   const [checked, setChecked] = useState(false);
   const boxRef = useRef(null);
 
@@ -468,87 +465,110 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
       {/* Dialog */}
       <div className="relative z-10 w-full max-w-3xl rounded-3xl overflow-hidden bg-[#0b0f14]/90 border border-cyan-400/20 shadow-[0_0_40px_-10px_rgba(0,255,200,0.5)]">
         <div className="px-6 py-5 border-b border-white/10">
-          <h3 className="text-xl font-semibold text-white">Terms & Conditions — Read Carefully</h3>
-          <p className="text-slate-400 text-sm mt-1">Review the terms and click Accept to continue.</p>
+          <h3 className="text-xl font-semibold text-white">EduCode End User License Agreement (EULA)</h3>
+          <p className="text-slate-400 text-sm mt-1">Last Updated: [Date]</p>
         </div>
 
         <div
           ref={boxRef}
           className="max-h-[60vh] overflow-y-auto px-6 py-4 space-y-6 no-scrollbar"
         >
-          {/* Terms */}
-          <section>
-            <h4 className="text-white font-semibold">1) Academic Integrity & Acceptable Use</h4>
-            <ul className="list-disc pl-5 text-slate-300 text-sm space-y-1 mt-2">
-              <li>Use TheEduCode client for legitimate learning and assessments only.</li>
-              <li>No cheating, collusion, impersonation, or bypass of exam policies.</li>
-              <li>Do not reverse engineer, tamper with, or redistribute the software.</li>
-            </ul>
+          <section className="text-slate-300 text-sm">
+            <p className="mb-3">
+              Please read this End User License Agreement (“Agreement”) carefully before downloading, installing, or using EduCode (“Software”).
+              By downloading or using the Software, you acknowledge that you have read, understood, and agree to be bound by the terms of this Agreement.
+              If you do not agree, do not install or use the Software.
+            </p>
           </section>
 
-          <section>
-            <h4 className="text-white font-semibold">2) Proctoring, Privacy & Data</h4>
-            <ul className="list-disc pl-5 text-slate-300 text-sm space-y-1 mt-2">
-              <li>During proctored exams, the client may capture camera, microphone, and screen per institute policy.</li>
-              <li>Network metadata and activity logs are recorded for integrity auditing.</li>
-              <li>Data is encrypted in transit and at rest; access is restricted to authorized staff.</li>
-            </ul>
-          </section>
+          <hr className="border-white/10" />
 
           <section>
-            <h4 className="text-white font-semibold">3) System Permissions</h4>
-            <ul className="list-disc pl-5 text-slate-300 text-sm space-y-1 mt-2">
-              <li>Grant camera/microphone permissions when prompted for proctored exams.</li>
-              <li>Allow the app through firewall for secure telemetry and updates.</li>
-              <li>Close other development tools during exams to comply with lockdown policy.</li>
-            </ul>
-          </section>
-
-          <section>
-            <h4 className="text-white font-semibold">4) Installation Instructions</h4>
-            <div className="text-slate-300 text-sm mt-2 space-y-2">
-              {os === 'windows' && (
-                <div className="rounded-lg bg-white/5 border border-white/10 p-3">
-                  <p className="font-semibold text-white/90">Windows (.exe)</p>
-                  <ol className="list-decimal pl-5 space-y-1 mt-1">
-                    <li>Download the installer and run as Administrator.</li>
-                    <li>Allow firewall prompt when asked.</li>
-                    <li>After install, launch TheEduCode and sign in with institute account.</li>
-                  </ol>
-                </div>
-              )}
-
-              {os === 'mac' && (
-                <div className="rounded-lg bg-white/5 border border-white/10 p-3">
-                  <p className="font-semibold text-white/90">macOS (.dmg)</p>
-                  <ol className="list-decimal pl-5 space-y-1 mt-1">
-                    <li>Open the .dmg and drag TheEduCode to Applications.</li>
-                    <li>If Gatekeeper blocks, right‑click → Open to trust the app.</li>
-                    <li>Launch from Applications and sign in with institute account.</li>
-                  </ol>
-                </div>
-              )}
-
-              {os === 'linux' && (
-                <div className="rounded-lg bg-white/5 border border-white/10 p-3">
-                  <p className="font-semibold text-white/90">
-                    {linuxVersion ? `Ubuntu ${linuxVersion} — ${prettyFlavor(linuxFlavor || 'GNOME')}` : 'Ubuntu (select version above)'}
-                  </p>
-                  <p className="text-slate-400 text-xs">.deb install (requires sudo)</p>
-                  <pre className="mt-2 bg-black/40 border border-white/10 rounded-lg p-3 text-[12px] text-emerald-200 overflow-auto no-scrollbar">
-                    sudo dpkg -i TheEduCode-{linuxVersion || 'XX'}-{linuxFlavor || 'desktop'}.deb
-                    {'\n'}sudo apt -f install
-                  </pre>
-                  <p className="text-xs text-slate-400 mt-2">If dependencies are missing, the second command fixes them.</p>
-                </div>
-              )}
-            </div>
-          </section>
-
-          <section>
-            <h4 className="text-white font-semibold">5) Support</h4>
+            <h4 className="text-white font-semibold">1. License Grant</h4>
             <p className="text-slate-300 text-sm mt-2">
-              Need help? Email support@theeducode.com or your institute admin.
+              EduCode grants you a limited, non‑exclusive, non‑transferable license to install and use the Software solely for its intended purpose
+              of providing secure, monitored academic and assessment environments.
+            </p>
+          </section>
+
+          <section>
+            <h4 className="text-white font-semibold">2. Data Collection and Monitoring</h4>
+            <p className="text-slate-300 text-sm mt-2">
+              By using the Software, you acknowledge and consent that EduCode may collect, access, and process the following information
+              and enforce system restrictions during use:
+            </p>
+            <ul className="list-disc pl-5 text-slate-300 text-sm space-y-1 mt-2">
+              <li>Device identifiers including MAC address and IP configuration (public and private).</li>
+              <li>Proxy/VPN detection and network configuration status.</li>
+              <li>Display information, including multiple‑monitor detection.</li>
+              <li>Active application control, including force‑closing open applications prior to starting the session.</li>
+              <li>Screen capture and screen sharing during monitored sessions.</li>
+              <li>Camera access and facial monitoring to verify identity and presence.</li>
+              <li>Keyboard and navigation controls, including temporary blocking of system hotkeys and restricted functions.</li>
+            </ul>
+            <p className="text-slate-300 text-sm mt-2">
+              This data is used solely for security, monitoring, and exam integrity purposes.
+            </p>
+          </section>
+
+          <section>
+            <h4 className="text-white font-semibold">3. Privacy and Data Protection</h4>
+            <ul className="list-disc pl-5 text-slate-300 text-sm space-y-1 mt-2">
+              <li>EduCode processes personal data in compliance with the Digital Personal Data Protection Act, 2023 (DPDP Act), India.</li>
+              <li>Data collected is limited to what is necessary for monitoring and security purposes.</li>
+              <li>Data will not be shared with third parties except as required by law or for the functioning of the Software.</li>
+              <li>Data is retained only for the duration necessary to provide monitoring and assessment services and is securely deleted thereafter.</li>
+              <li>By accepting this Agreement, you consent to the collection and processing of your personal data as described above.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4 className="text-white font-semibold">4. User Responsibilities</h4>
+            <ul className="list-disc pl-5 text-slate-300 text-sm space-y-1 mt-2">
+              <li>You agree to use the Software only for its intended academic/assessment purposes.</li>
+              <li>You may not disable, bypass, or interfere with monitoring or restrictions enforced by the Software.</li>
+              <li>You are responsible for saving your work before launching the Software, as active applications will be closed.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4 className="text-white font-semibold">5. Restrictions</h4>
+            <p className="text-slate-300 text-sm mt-2">You may not:</p>
+            <ul className="list-disc pl-5 text-slate-300 text-sm space-y-1 mt-2">
+              <li>Copy, modify, or reverse‑engineer the Software.</li>
+              <li>Distribute or resell the Software without authorization.</li>
+              <li>Use the Software for purposes other than those permitted.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4 className="text-white font-semibold">6. Disclaimer and Limitation of Liability</h4>
+            <ul className="list-disc pl-5 text-slate-300 text-sm space-y-1 mt-2">
+              <li>The Software is provided “as is” without warranties of any kind.</li>
+              <li>EduCode is not responsible for loss of unsaved data due to forced application closures.</li>
+              <li>EduCode is not liable for damages arising from use, inability to use, or monitoring actions performed by the Software.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4 className="text-white font-semibold">7. Termination</h4>
+            <p className="text-slate-300 text-sm mt-2">
+              This Agreement terminates immediately if you breach any term. EduCode reserves the right to suspend or revoke access at any time.
+            </p>
+          </section>
+
+          <section>
+            <h4 className="text-white font-semibold">8. Governing Law</h4>
+            <p className="text-slate-300 text-sm mt-2">
+              This Agreement shall be governed by and construed in accordance with the laws of India.
+              You agree that any disputes arising out of or relating to this Agreement shall be subject to the exclusive jurisdiction
+              of the courts located in [Your City], India.
+            </p>
+          </section>
+
+          <section className="text-slate-400 text-xs">
+            <p>
+              By clicking “I Agree” or downloading the Software, you consent to the terms above.
             </p>
           </section>
 
@@ -563,14 +583,14 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
               onChange={(e) => setChecked(e.target.checked)}
               className="h-4 w-4 rounded border-white/20 bg-white/5"
             />
-            I accept the Terms & Conditions above.
+            I agree to the EduCode EULA.
           </label>
           <div className="flex items-center gap-3">
             <button
               onClick={onClose}
               className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-slate-200 hover:bg-white/10 transition"
             >
-              Decline
+              Cancel
             </button>
             <button
               onClick={onAccept}
@@ -592,11 +612,10 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
 
 
 
-// // src/app/dashboard/downloads/page.js
 // 'use client';
 
 // import { useEffect, useMemo, useRef, useState } from 'react';
-// import { detectOSArch } from '../_components/osDetect';
+// import { detectOSArch, usePlatformInfo } from '../_components/osDetect';
 
 // const DOWNLOADS = {
 //   windows: {
@@ -656,32 +675,40 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
 // };
 
 // export default function DownloadsPage() {
-//   const det = detectOSArch();
+//   const det = detectOSArch();          // sync fallback for initial render
+//   const info = usePlatformInfo();      // refined details (we won't auto-pick Linux version)
 //   const [os, setOs] = useState(det.os);
 //   const [arch, setArch] = useState(det.arch);
 //   const [channel, setChannel] = useState('stable');
 
-//   // Linux selectors
-//   const [linuxVersion, setLinuxVersion] = useState('24'); // default to 24 since you have a real link
-//   const linuxOptions = useMemo(() => LINUX_MATRIX[linuxVersion]?.options || [], [linuxVersion]);
-//   const [linuxFlavor, setLinuxFlavor] = useState(linuxOptions[0]?.key || 'gnome');
+//   // Linux selectors (no auto select; user decides)
+//   const [linuxVersion, setLinuxVersion] = useState(''); // start with none selected
+//   const linuxOptions = useMemo(
+//     () => (linuxVersion ? (LINUX_MATRIX[linuxVersion]?.options || []) : []),
+//     [linuxVersion]
+//   );
+//   const [linuxFlavor, setLinuxFlavor] = useState(''); // set when version changes
 
+//   // Apply refined detection for OS/arch only (no Linux version auto-pick)
 //   useEffect(() => {
-//     setOs(det.os);
-//     setArch(det.arch);
-//   }, []);
+//     if (!info?.os) return;
+//     setOs(info.os);
+//     setArch(info.arch || det.arch);
+//   }, [info.os, info.arch]); // eslint-disable-line react-hooks/exhaustive-deps
 
+//   // When version changes, default flavor to first option; otherwise keep empty
 //   useEffect(() => {
-//     setLinuxFlavor((prev) => {
-//       const first = linuxOptions[0]?.key;
-//       return first || prev || 'gnome';
-//     });
+//     setLinuxFlavor(linuxOptions[0]?.key || '');
 //   }, [linuxOptions]);
 
 //   const activeList = useMemo(() => DOWNLOADS[os][channel], [os, channel]);
 
+//   // Primary download selection
 //   const primary = useMemo(() => {
 //     if (os === 'linux') {
+//       if (!linuxVersion || linuxOptions.length === 0) {
+//         return { href: '#', label: 'Select a Linux version' };
+//       }
 //       const picked = linuxOptions.find((o) => o.key === linuxFlavor) || linuxOptions[0];
 //       return picked || { href: '#', label: 'Select a Linux option' };
 //     }
@@ -692,8 +719,9 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
 //         ? `mac-${arch}`
 //         : '';
 //     return activeList.find((i) => i.id === prefId) || activeList[0];
-//   }, [os, arch, activeList, linuxOptions, linuxFlavor]);
+//   }, [os, arch, activeList, linuxOptions, linuxFlavor, linuxVersion]);
 
+//   // Grid items
 //   const gridItems = os === 'linux' ? linuxOptions : activeList;
 
 //   const isDisabled = (href) => !href || href === '#';
@@ -715,9 +743,8 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
 
 //   const requestDownload = (item) => {
 //     if (!item || isDisabled(item.href)) return;
-//     // Instructions open directly (no modal)
 //     if (isInstruction(item)) {
-//       openDirect(item.href);
+//       openDirect(item.href); // instructions bypass modal
 //       return;
 //     }
 //     setPendingItem(item);
@@ -731,7 +758,24 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
 //     setPendingItem(null);
 //   };
 
-//   // Dynamic System Requirements (changes per OS/version)
+//   // Auto-detected label: for Linux, just "Linux" (no distro/version)
+//   const autoLabel = useMemo(() => {
+//     if (!info?.os) return osLabel(os);
+//     if (info.os === 'windows') {
+//       const v = info.versionName || '10/11';
+//       return `Windows ${v}`;
+//     }
+//     if (info.os === 'mac') {
+//       const v = info.versionName || info.version || '';
+//       return `macOS ${v}`.trim();
+//     }
+//     if (info.os === 'linux') {
+//       return 'Linux';
+//     }
+//     return osLabel(os);
+//   }, [info, os]);
+
+//   // Dynamic System Requirements (generic until version chosen)
 //   const sysReq = useMemo(
 //     () => buildSystemRequirements({ os, arch, linuxVersion, linuxFlavor }),
 //     [os, arch, linuxVersion, linuxFlavor]
@@ -742,11 +786,11 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
 //       <header className="mt-10 md:mt-16">
 //         <h1 className="text-4xl font-semibold text-white">Download TheEduCode</h1>
 //         <p className="text-slate-300 mt-2">
-//           Auto‑detected: <span className="text-white font-medium">{osLabel(os)} {arch.toUpperCase()}</span>
+//           Auto‑detected: <span className="text-white font-medium">{autoLabel} {String(arch || '').toUpperCase()}</span>
 //         </p>
 //       </header>
 
-//       {/* Channel selector (kept exactly as you had) */}
+//       {/* Channel selector */}
 //       <div className="mt-6 flex items-center gap-4">
 //         <Toggle label="Stable" active={channel === 'stable'} onClick={() => setChannel('stable')} />
 //       </div>
@@ -768,17 +812,19 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
 //             <Pill label="25" active={linuxVersion === '25'} onClick={() => setLinuxVersion('25')} />
 //           </div>
 
-//           <div className="mt-3 flex items-center gap-3">
-//             <span className="text-xs text-slate-400">Desktop:</span>
-//             {linuxOptions.map((opt) => (
-//               <Pill
-//                 key={opt.key}
-//                 label={prettyFlavor(opt.key)}
-//                 active={linuxFlavor === opt.key}
-//                 onClick={() => setLinuxFlavor(opt.key)}
-//               />
-//             ))}
-//           </div>
+//           {linuxOptions.length > 0 && (
+//             <div className="mt-3 flex items-center gap-3">
+//               <span className="text-xs text-slate-400">Desktop:</span>
+//               {linuxOptions.map((opt) => (
+//                 <Pill
+//                   key={opt.key}
+//                   label={prettyFlavor(opt.key)}
+//                   active={linuxFlavor === opt.key}
+//                   onClick={() => setLinuxFlavor(opt.key)}
+//                 />
+//               ))}
+//             </div>
+//           )}
 //         </>
 //       )}
 
@@ -788,7 +834,7 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
 //           <button
 //             disabled
 //             className="inline-flex items-center gap-3 rounded-2xl px-6 py-4 bg-white/10 border border-white/10 text-slate-300 cursor-not-allowed"
-//             title="Link coming soon"
+//             title="Select version first"
 //           >
 //             <span className="text-lg">Download {primary?.label || '—'}</span>
 //             <span className="text-xs opacity-90">({channel})</span>
@@ -819,7 +865,7 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
 //         })}
 //       </section>
 
-//       {/* System requirements + Network requirements (dynamic) */}
+//       {/* System requirements + Internet/Network */}
 //       <section className="mt-12 grid md:grid-cols-2 gap-6">
 //         <div className="rounded-2xl bg-white/5 border border-cyan-400/20 backdrop-blur-xl p-6">
 //           <h3 className="text-lg font-semibold mb-1 text-white">System requirements</h3>
@@ -856,13 +902,13 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
 //       {/* Hide scrollbars globally and via utility */}
 //       <style jsx global>{`
 //         html, body {
-//           scrollbar-width: none;           /* Firefox */
-//           -ms-overflow-style: none;        /* IE/Edge */
+//           scrollbar-width: none;
+//           -ms-overflow-style: none;
 //         }
 //         html::-webkit-scrollbar,
 //         body::-webkit-scrollbar {
 //           width: 0;
-//           height: 0;                       /* WebKit */
+//           height: 0;
 //         }
 //         .no-scrollbar {
 //           scrollbar-width: none;
@@ -878,7 +924,6 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
 // }
 
 // /* ===== helpers / UI ===== */
-
 // function Toggle({ label, active, onClick }) {
 //   return (
 //     <button
@@ -933,10 +978,10 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
 //           ? 'bg-white/5 border-white/10 cursor-not-allowed opacity-60'
 //           : 'bg-white/5 border border-cyan-400/20 hover:bg-white/10'}
 //       `}
-//       title={disabled ? 'Link coming soon' : 'Click to download'}
+//       title={disabled ? 'Select version first' : 'Click to download'}
 //     >
 //       <div className="text-white font-medium">{item.label}</div>
-//       <div className="text-xs text-slate-400 mt-1">{disabled ? 'Coming soon' : 'Click to download'}</div>
+//       <div className="text-xs text-slate-400 mt-1">{disabled ? 'Select version first' : 'Click to download'}</div>
 //       <div className="mt-3 h-1 w-16 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 group-hover:w-24 transition-all"></div>
 //     </a>
 //   );
@@ -971,9 +1016,9 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
 //   if (os === 'mac') {
 //     const isArm = arch === 'arm64';
 //     return {
-//       subtitle: `Target: macOS ${isArm ? '15+ (Apple Silicon M1/M2/M3)' : '12+ (Intel x64 supported)'}`,
+//       subtitle: `Target: ${isArm ? 'Apple Silicon (macOS 15+)' : 'Intel x64 (macOS 12+)'}`,
 //       items: [
-//         `Device: ${isArm ? 'Apple Silicon M1 or newer (recommended)' : 'Intel x64 (supported)'} `,
+//         `Device: ${isArm ? 'Apple Silicon M1 or newer' : 'Intel x64'}`,
 //         `OS: ${isArm ? 'macOS 15 or later' : 'macOS 12 or later'}`,
 //         'RAM: 4 GB minimum (8 GB recommended)',
 //         'Storage: ~500 MB free disk space',
@@ -983,17 +1028,31 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
 //   }
 
 //   // Linux
-//   const flavor = prettyFlavor(linuxFlavor);
+//   if (!linuxVersion) {
+//     return {
+//       subtitle: 'Target: Linux (choose Ubuntu version) — GNOME/KDE (64‑bit)',
+//       items: [
+//         'CPU: Intel Core i3 (any generation) or AMD Ryzen 3 (any generation)',
+//         'RAM: 4 GB minimum (8 GB recommended)',
+//         'Storage: ~500 MB free disk space',
+//         'Camera & microphone required for proctored exams',
+//         'Select Ubuntu version above to view specific desktop options',
+//       ],
+//     };
+//   }
+
+//   const flavor = prettyFlavor(linuxFlavor || 'GNOME');
 //   const ubuntuName =
 //     linuxVersion === '22' ? 'Ubuntu 22.04 LTS' :
 //     linuxVersion === '24' ? 'Ubuntu 24.04 LTS' :
-//     'Ubuntu 25 (GNOME/KDE)';
+//     'Ubuntu 25';
 //   return {
 //     subtitle: `Target: ${ubuntuName} — ${flavor} (64‑bit)`,
 //     items: [
 //       'CPU: Intel Core i3 (any generation) or AMD Ryzen 3 (any generation)',
 //       'RAM: 4 GB minimum (8 GB recommended)',
-//       'Desktop: ' + flavor,
+//       'Storage: ~500 MB free disk space',
+//       `Desktop: ${flavor}`,
 //       'Camera & microphone required for proctored exams',
 //       'Tip: if dependencies are missing, run “sudo apt -f install” after installing the .deb',
 //     ],
@@ -1085,10 +1144,12 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
 
 //               {os === 'linux' && (
 //                 <div className="rounded-lg bg-white/5 border border-white/10 p-3">
-//                   <p className="font-semibold text-white/90">Ubuntu {linuxVersion} — {prettyFlavor(linuxFlavor)}</p>
+//                   <p className="font-semibold text-white/90">
+//                     {linuxVersion ? `Ubuntu ${linuxVersion} — ${prettyFlavor(linuxFlavor || 'GNOME')}` : 'Ubuntu (select version above)'}
+//                   </p>
 //                   <p className="text-slate-400 text-xs">.deb install (requires sudo)</p>
 //                   <pre className="mt-2 bg-black/40 border border-white/10 rounded-lg p-3 text-[12px] text-emerald-200 overflow-auto no-scrollbar">
-//                     sudo dpkg -i TheEduCode-{linuxVersion}-{linuxFlavor}.deb
+//                     sudo dpkg -i TheEduCode-{linuxVersion || 'XX'}-{linuxFlavor || 'desktop'}.deb
 //                     {'\n'}sudo apt -f install
 //                   </pre>
 //                   <p className="text-xs text-slate-400 mt-2">If dependencies are missing, the second command fixes them.</p>
@@ -1141,3 +1202,4 @@ function TermsModal({ open, item, onAccept, onClose, os, linuxVersion, linuxFlav
 //     </div>
 //   );
 // }
+
