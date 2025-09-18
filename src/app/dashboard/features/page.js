@@ -102,7 +102,7 @@ export default function FeaturesPage() {
       <Section title="4. Deployment & Hosting" id="deploy" />
 
       <Grid>
-        <FeatureCard title="4.1 Cloud (AWS + Vercel)" points={[
+        <FeatureCard title="4.1 Cloud " points={[
           'Auto‑scaling for 20k+ students',
           'Multi‑region low‑latency hosting',
           'Disaster recovery: automated failover & backups',
