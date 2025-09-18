@@ -466,7 +466,7 @@ function TermsModal({ open, item, onAccept, onClose }) {
       <div className="relative z-10 w-full max-w-3xl rounded-3xl overflow-hidden bg-[#0b0f14]/90 border border-cyan-400/20 shadow-[0_0_40px_-10px_rgba(0,255,200,0.5)]">
         <div className="px-6 py-5 border-b border-white/10">
           <h3 className="text-xl font-semibold text-white">EduCode End User License Agreement (EULA)</h3>
-          <p className="text-slate-400 text-sm mt-1">Last Updated: [Date]</p>
+          <p className="text-slate-400 text-sm mt-1">Last Updated: 12/09/2025 </p>
         </div>
 
         <div
@@ -562,7 +562,7 @@ function TermsModal({ open, item, onAccept, onClose }) {
             <p className="text-slate-300 text-sm mt-2">
               This Agreement shall be governed by and construed in accordance with the laws of India.
               You agree that any disputes arising out of or relating to this Agreement shall be subject to the exclusive jurisdiction
-              of the courts located in [Your City], India.
+              of the courts located in Krishnagar Nadiya West Bengal, India.
             </p>
           </section>
 
