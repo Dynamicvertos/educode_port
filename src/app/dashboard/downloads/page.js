@@ -8,7 +8,7 @@ const DOWNLOADS = {
   windows: {
     stable: [
       { id: 'Installation Instruction', label: 'Setup Instruction', href: 'https://docs.google.com/document/d/1SEvi9ASni5sTPSrmBfA3h8xv5he7AzsFf4dgdcWpPu0/edit?usp=sharing' },
-      { id: 'windows-x64', label: 'Windows x64 (.exe)', href: 'https://github.com/theeducodeofficial-hub/EduCode-Releases/releases/download/v1.0.0/EduCode-1.0.0-win-x64.exe' },
+      { id: 'windows-x64', label: 'Windows x64 (.exe)', href: 'https://github.com/theeducodeofficial-hub/EduCode-Releases/releases/tag/v1.2.1' },
       // { id: 'windows-zip', label: 'Windows Portable (.zip)', href: 'https://download.theeducode.com/windows/TheEduCode-win-portable.zip' },
     ],
     insiders: [],
